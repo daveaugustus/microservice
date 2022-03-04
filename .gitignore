@@ -1,0 +1,5 @@
+.vscode/*
+
+temp_mongo/*
+
+.env
