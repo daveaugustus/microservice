@@ -53,3 +53,7 @@ func (r *usersRepository) Update(user *models.User) error {
 func (r *usersRepository) Delete(id string) error {
 	return r.c.RemoveId(bson.ObjectIdHex(id))
 }
+
+func (r *usersRepository) DeleteAll() error {
+	return r.c.DropCollection()
+}
