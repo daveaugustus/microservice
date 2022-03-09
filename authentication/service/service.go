@@ -26,11 +26,14 @@ func (s *authService) SignUp(ctx context.Context, req *pb.User) (*pb.User, error
 	if err != nil {
 		return nil, err
 	}
+	req.Name = strings.TrimSpace(req.Name)
+	req.Email = validators.NormalizeEmail(req.Email)
 
 	found, err := s.usersRepository.GetByEmail(req.Email)
 	if err == mgo.ErrNotFound {
 		user := new(models.User)
 		user.FromProtoBuffer(req)
+
 		err := s.usersRepository.Save(user)
 		if err != nil {
 			return nil, err
