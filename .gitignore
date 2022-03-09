@@ -5,3 +5,4 @@ temp_mongo/*
 .env
 
 authentication/authsvc
+api/apisvc

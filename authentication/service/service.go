@@ -9,6 +9,8 @@ import (
 	"strings"
 	"time"
 
+	"microservice/security"
+
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
@@ -26,6 +28,12 @@ func (s *authService) SignUp(ctx context.Context, req *pb.User) (*pb.User, error
 	if err != nil {
 		return nil, err
 	}
+
+	req.Password, err = security.EncryptPassword(req.Password)
+	if err != nil {
+		return nil, err
+	}
+
 	req.Name = strings.TrimSpace(req.Name)
 	req.Email = validators.NormalizeEmail(req.Email)
 

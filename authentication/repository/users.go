@@ -42,7 +42,7 @@ func (r *usersRepository) GetByEmail(email string) (user *models.User, err error
 }
 
 func (r *usersRepository) GetAll() (users []*models.User, err error) {
-	err = r.c.Find(bson.M{}).One((&users))
+	err = r.c.Find(bson.M{}).All((&users))
 	return users, err
 }
 
